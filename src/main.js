@@ -1,5 +1,6 @@
-const { app, BrowserWindow, Menu, dialog  } = require('electron');
-const path = require('node:path');
+const { app, BrowserWindow, Menu, dialog } = require('electron');
+const path = require('path');
+const basePath = app.getAppPath();
 // const {menuTemplate} = require("./data/menu-template");
 let mainWindow;
 const menuTemplate = [
@@ -65,8 +66,8 @@ const menuTemplate = [
       });
 
       // Load an HTML file or URL into the dialog window
-      dialogWindow.loadURL('https://www.google.com');
-      // dialogWindow.loadURL('file://' + path.join(__dirname, 'dialog.html'));
+      // dialogWindow.loadURL('https://www.google.com');
+      dialogWindow.loadURL('file://' + path.resolve(basePath, './src/files/login.html'));
     }
   },
 ]
@@ -85,12 +86,14 @@ const createWindow = () => {
     width: 800,
     height: 600,
     webPreferences: {
-      preload: MAIN_WINDOW_PRELOAD_WEBPACK_ENTRY,
+      // preload: MAIN_WINDOW_PRELOAD_WEBPACK_ENTRY,
     },
   });
 
   // and load the index.html of the app.
-  mainWindow.loadURL(MAIN_WINDOW_WEBPACK_ENTRY);
+  // mainWindow.loadURL('file://' + path.join(__dirname, 'index.html'));
+  mainWindow.loadFile(path.resolve(basePath, './src/files/index.html'));
+
   // Open the DevTools.
   mainWindow.webContents.openDevTools();
 };
