@@ -22,8 +22,6 @@ const createWindow = () => {
 
   // and load the index.html of the app.
   mainWindow.loadURL(MAIN_WINDOW_WEBPACK_ENTRY);
-  win.loadFile(path.resolve(__dirname, 'index.html'));
-
   // Open the DevTools.
   mainWindow.webContents.openDevTools();
 };
