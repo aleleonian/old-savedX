@@ -70,6 +70,19 @@ const menuTemplate = [
       dialogWindow.loadURL('file://' + path.resolve(basePath, './src/files/login.html'));
     }
   },
+  {
+    label: "mainToRenderer",
+    submenu: [
+      {
+        click: () => mainWindow.webContents.send('update-counter', 1),
+        label: 'Increment'
+      },
+      {
+        click: () => mainWindow.webContents.send('update-counter', -1),
+        label: 'Decrement'
+      }
+    ]
+  }
 ]
 
 const menu = Menu.buildFromTemplate(menuTemplate);
@@ -127,5 +140,10 @@ app.on('window-all-closed', () => {
   }
 });
 
+ipcMain.on('set-title', (event, title) => {
+  const webContents = event.sender
+  const win = BrowserWindow.fromWebContents(webContents)
+  win.setTitle(title)
+})
 // In this file you can include the rest of your app's specific main process
 // code. You can also put them in separate files and import them here.
