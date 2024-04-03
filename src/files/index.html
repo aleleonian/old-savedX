@@ -20,7 +20,7 @@
   </div>
   <script>
     // Handle form submission
-    document.getElementById('loginForm').addEventListener('submit', (event) => {
+    document.getElementById('loginForm').addEventListener('submit', async (event) => {
 
       event.preventDefault(); // Prevent default form submission behavior
       // Get form data
@@ -28,9 +28,8 @@
         username: document.getElementById('username').value,
         password: document.getElementById('password').value
       };
-
+      window.myApi.pasternak(formData);
       // Send form data to the main process
-      window.pedro.pasternak(formData);
     });
   </script>
 </body>

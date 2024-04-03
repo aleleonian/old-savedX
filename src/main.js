@@ -1,4 +1,4 @@
-const { app, BrowserWindow, Menu, dialog } = require('electron');
+const { app, BrowserWindow, Menu, dialog, ipcMain } = require('electron');
 const path = require('path');
 const basePath = app.getAppPath();
 // const {menuTemplate} = require("./data/menu-template");
@@ -86,14 +86,15 @@ const createWindow = () => {
     width: 800,
     height: 600,
     webPreferences: {
-      // preload: MAIN_WINDOW_PRELOAD_WEBPACK_ENTRY,
-      preload:  path.resolve(basePath, './src/preload.js'),
+      preload: MAIN_WINDOW_PRELOAD_WEBPACK_ENTRY,
+      // preload:  path.resolve(basePath, './src/preload.js'),
     },
   });
 
   // and load the index.html of the app.
   // mainWindow.loadURL('file://' + path.join(__dirname, 'index.html'));
-  mainWindow.loadFile(path.resolve(basePath, './src/files/index.html'));
+  // mainWindow.loadFile(path.resolve(basePath, './src/files/index.html'));
+  mainWindow.loadURL(MAIN_WINDOW_WEBPACK_ENTRY);
 
   // Open the DevTools.
   mainWindow.webContents.openDevTools();
@@ -105,6 +106,7 @@ const createWindow = () => {
 // initialization and is ready to create browser windows.
 // Some APIs can only be used after this event occurs.
 app.whenReady().then(() => {
+  ipcMain.handle('ping', () => 'pong')
   createWindow();
 
   // On OS X it's common to re-create a window in the app when the

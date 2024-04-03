@@ -37,7 +37,8 @@ module.exports = {
           config: './webpack.renderer.config.js',
           entryPoints: [
             {
-              html: './src/index.html',
+              html: './src/files/index.html',
+              //if i comment the renderer it all breaks
               js: './src/renderer.js',
               name: 'main_window',
               preload: {

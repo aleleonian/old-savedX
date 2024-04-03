@@ -2,10 +2,8 @@
 // https://www.electronjs.org/docs/latest/tutorial/process-model#preload-scripts
 const { ipcRenderer, contextBridge } = require("electron");
 
-ipcRenderer.on('nothing-surprises-me', () => {
-
-});
-
-contextBridge.exposeInMainWorld("pedro", {
-    pasternak: (data) => console.log("pedro, pasternak,data: " + JSON.stringify(data)),
-});
+contextBridge.exposeInMainWorld("myApi", {
+    pasternak: (data) => console.log("myApi, pasternak,data: " + JSON.stringify(data)),
+    ping: () => ipcRenderer.invoke('ping')
+}
+);
