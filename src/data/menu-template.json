@@ -1,0 +1,23 @@
+[
+    {
+      "label": "File",
+      "submenu": [
+        { "label": "New", "accelerator": "CmdOrCtrl+N", "click": "Handle 'New' action" },
+        { "label": "Open", "accelerator": "CmdOrCtrl+O", "click": "Handle 'Open' action" },
+        { "type": "separator" },
+        { "label": "Exit", "role": "quit" }
+      ]
+    },
+    {
+      "label": "Config",
+      "submenu": [
+        { "label": "Undo", "accelerator": "CmdOrCtrl+Z", "role": "undo" },
+        { "label": "Redo", "accelerator": "Shift+CmdOrCtrl+Z", "role": "redo" },
+        { "type": "separator" },
+        { "label": "Cut", "accelerator": "CmdOrCtrl+X", "role": "cut" },
+        { "label": "Copy", "accelerator": "CmdOrCtrl+C", "role": "copy" },
+        { "label": "Paste", "accelerator": "CmdOrCtrl+V", "role": "paste" }
+      ]
+    }
+  ]
+  
