@@ -87,6 +87,7 @@ const createWindow = () => {
     height: 600,
     webPreferences: {
       // preload: MAIN_WINDOW_PRELOAD_WEBPACK_ENTRY,
+      preload:  path.resolve(basePath, './src/preload.js'),
     },
   });
 
@@ -96,6 +97,8 @@ const createWindow = () => {
 
   // Open the DevTools.
   mainWindow.webContents.openDevTools();
+
+  mainWindow.webContents.send('nothing-surprises-me', 'that-s all thats left behind');
 };
 
 // This method will be called when Electron has finished

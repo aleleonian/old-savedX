@@ -1,12 +1,38 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="UTF-8" />
-    <title>Hello World!</title>
 
-  </head>
-  <body>
-    <h1>💖 Hello World!</h1>
-    <p>Welcome to your Electron application.</p>
-  </body>
+<head>
+  <meta charset="UTF-8" />
+  <title>Hello World!</title>
+
+</head>
+
+<body>
+  <h1>💖 Hello World!</h1>
+  <p>Welcome to your Electron application.</p>
+  <div class="container">
+    <h2>Login</h2>
+    <form id="loginForm">
+      <input type="text" id="username" name="username" placeholder="Username" required>
+      <input type="password" id="password" name="password" placeholder="Password" required>
+      <input type="submit" value="Login">
+    </form>
+  </div>
+  <script>
+    // Handle form submission
+    document.getElementById('loginForm').addEventListener('submit', (event) => {
+
+      event.preventDefault(); // Prevent default form submission behavior
+      // Get form data
+      const formData = {
+        username: document.getElementById('username').value,
+        password: document.getElementById('password').value
+      };
+
+      // Send form data to the main process
+      window.pedro.pasternak(formData);
+    });
+  </script>
+</body>
+
 </html>
