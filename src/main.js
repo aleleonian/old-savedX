@@ -2,6 +2,7 @@ const { app, BrowserWindow, Menu, dialog, ipcMain } = require('electron');
 const path = require('path');
 const sqlite3 = require('sqlite3').verbose();
 const fs = require('fs');
+const { goFetch } = require("./puppie");
 
 const basePath = app.getAppPath();
 // const {menuTemplate} = require("./data/menu-template");
@@ -173,6 +174,11 @@ ipcMain.on('set-title', (event, title) => {
 ipcMain.on('form-data', (event, data) => {
   const webContents = event.sender;
   console.log("we got data from the form! ", JSON.stringify(data));
+})
+ipcMain.on('log-into-x', async (event, data) => {
+  const webContents = event.sender;
+  console.log("ready to log into X!");
+  let result = await goFetch();
 })
 // In this file you can include the rest of your app's specific main process
 // code. You can also put them in separate files and import them here.

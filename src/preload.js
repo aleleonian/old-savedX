@@ -15,7 +15,8 @@ contextBridge.exposeInMainWorld("myApi", {
 contextBridge.exposeInMainWorld('electronAPI', {
   setTitle: (title) => ipcRenderer.send('set-title', title),
   onUpdateCounter: (callback) => ipcRenderer.on('update-counter', (_event, value) => callback(value)).addListener,
-  counterValue: (value) => ipcRenderer.send('counter-value', value)
+  counterValue: (value) => ipcRenderer.send('counter-value', value),
+  logIntoX: () => ipcRenderer.send('log-into-x'),
 
 })
 

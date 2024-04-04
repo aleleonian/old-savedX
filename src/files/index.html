@@ -12,6 +12,7 @@
   <p>Welcome to your Electron application.</p>
   <div class="container">
     <h2>Login</h2>
+    <button onclick="logIntoX()">Log into X</button>
     <form id="loginForm">
       <input type="text" id="username" name="username" placeholder="Username" required>
       <input type="password" id="password" name="password" placeholder="Password" required>
@@ -32,7 +33,12 @@
       };
       window.myApi.pasternak(formData);
       // Send form data to the main process
+
     });
+
+    function logIntoX(){
+      window.electronAPI.logIntoX();
+    }
   </script>
 </body>
 
