@@ -3,5 +3,6 @@ const { ipcRenderer, contextBridge } = require("electron");
 // preload.js
 contextBridge.exposeInMainWorld("myApi", {
     pasternak: (data) => console.log("myApi, pasternak,data: " + JSON.stringify(data)),
-    ping: () => ipcRenderer.invoke('ping')
+    ping: () => ipcRenderer.invoke('ping'),
+    sendData: (data) => ipcRenderer.send('form-data', data),
 });

@@ -170,5 +170,9 @@ ipcMain.on('set-title', (event, title) => {
   const win = BrowserWindow.fromWebContents(webContents)
   win.setTitle(title)
 })
+ipcMain.on('form-data', (event, data) => {
+  const webContents = event.sender;
+  console.log("we got data from the form! ", JSON.stringify(data));
+})
 // In this file you can include the rest of your app's specific main process
 // code. You can also put them in separate files and import them here.
