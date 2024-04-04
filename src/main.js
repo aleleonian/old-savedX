@@ -1,8 +1,13 @@
 const { app, BrowserWindow, Menu, dialog, ipcMain } = require('electron');
 const path = require('path');
+const sqlite3 = require('sqlite3').verbose();
+const fs = require('fs');
+
 const basePath = app.getAppPath();
 // const {menuTemplate} = require("./data/menu-template");
 let mainWindow;
+let db;
+
 const menuTemplate = [
   {
     "label": "File",
@@ -93,6 +98,21 @@ if (require('electron-squirrel-startup')) {
   app.quit();
 }
 
+const init = () =>{
+  try {
+    // Check if the file exists
+    const dbPath = path.resolve(basePath, './src/data/savedx.db');
+    fs.accessSync(dbPath, fs.constants.F_OK);
+    console.log('File exists, opening...');
+    return new sqlite3.Database(dbPath);
+    // File exists, you can open it here
+  } catch (err) {
+    // File doesn't exist, handle the error
+    console.error('File does not exist:', err);
+  }
+  return db;
+}
+
 const createWindow = () => {
   // Create the browser window.
   mainWindow = new BrowserWindow({
@@ -111,8 +131,6 @@ const createWindow = () => {
 
   // Open the DevTools.
   mainWindow.webContents.openDevTools();
-
-  mainWindow.webContents.send('nothing-surprises-me', 'that-s all thats left behind');
 };
 
 // This method will be called when Electron has finished
@@ -121,7 +139,13 @@ const createWindow = () => {
 app.whenReady().then(() => {
   ipcMain.handle('ping', () => 'pong')
   createWindow();
-
+  db = init();
+  if(!db){
+    mainWindow.webContents.send('db-init-problem', 'db file does not exist');
+  }
+  else {
+    mainWindow.webContents.send('db-init-problem', 'db file DOES exist!');
+  }
   // On OS X it's common to re-create a window in the app when the
   // dock icon is clicked and there are no other windows open.
   app.on('activate', () => {

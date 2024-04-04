@@ -23,3 +23,12 @@ contextBridge.exposeInMainWorld('electronAPI', {
 // ipcRenderer.on('pongFromMain', (event, arg) => {
 //     console.log(arg); // Prints "Pong from main!"
 // });
+
+// Listen for 'databaseError' messages from the main process
+ipcRenderer.on('db-init-problem', (event, errorMessage) => {
+  // Handle the error message
+  console.error('Database communication message:', errorMessage);
+  // Display the error message to the user (e.g., in the UI)
+  const errorContainer = document.getElementById('error-container');
+  errorContainer.textContent = errorMessage;
+});

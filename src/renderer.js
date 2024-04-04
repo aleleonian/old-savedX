@@ -7,7 +7,7 @@
 const func = async () => {
   const response = await window.myApi.ping();
   console.log(response) // prints out 'pong'
-  window.electronAPI.setTitle("Y digo dale nena")
+  window.electronAPI.setTitle("SavedX: Twitter Bookmark Manager")
 }
 
 
