@@ -66,10 +66,12 @@ const menuTemplate = [
         modal: true, // Make the dialog modal
         parent: mainWindow, // Set the main window as the parent
         webPreferences: {
-          nodeIntegration: true // Enable Node.js integration in the dialog window
+          nodeIntegration: true, // Enable Node.js integration in the dialog window
+          preload: path.resolve(basePath, './src/dialogPreload.js') // Specify the preload script
         }
       });
 
+      dialogWindow.webContents.openDevTools();
       // Load an HTML file or URL into the dialog window
       // dialogWindow.loadURL('https://www.google.com');
       dialogWindow.loadURL('file://' + path.resolve(basePath, './src/files/login.html'));
@@ -98,12 +100,11 @@ if (require('electron-squirrel-startup')) {
   app.quit();
 }
 
-const init = () =>{
+const init = () => {
   try {
     // Check if the file exists
     const dbPath = path.resolve(basePath, './src/data/savedx.db');
     fs.accessSync(dbPath, fs.constants.F_OK);
-    console.log('File exists, opening...');
     return new sqlite3.Database(dbPath);
     // File exists, you can open it here
   } catch (err) {
@@ -140,7 +141,7 @@ app.whenReady().then(() => {
   ipcMain.handle('ping', () => 'pong')
   createWindow();
   db = init();
-  if(!db){
+  if (!db) {
     mainWindow.webContents.send('db-init-problem', 'db file does not exist');
   }
   else {

@@ -10,8 +10,7 @@ const { ipcRenderer, contextBridge } = require("electron");
 contextBridge.exposeInMainWorld("myApi", {
     pasternak: (data) => console.log("myApi, pasternak,data: " + JSON.stringify(data)),
     ping: () => ipcRenderer.invoke('ping')
-}
-);
+});
 
 contextBridge.exposeInMainWorld('electronAPI', {
   setTitle: (title) => ipcRenderer.send('set-title', title),
